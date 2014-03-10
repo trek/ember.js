@@ -1,4 +1,4 @@
-import Ember from 'ember-metal/core'; // Ember.assert
+import {emberAssert} from "ember-metal/debugger";
 
 /**
 @module ember
@@ -109,7 +109,7 @@ var setInnerHTML = function(element, html) {
   } else {
     // Firefox versions < 11 do not have support for element.outerHTML.
     var outerHTML = element.outerHTML || new XMLSerializer().serializeToString(element);
-    Ember.assert("Can't set innerHTML on "+element.tagName+" in this browser", outerHTML);
+    emberAssert("Can't set innerHTML on "+element.tagName+" in this browser", outerHTML);
 
     var startTag = outerHTML.match(new RegExp("<"+tagName+"([^>]*)>", 'i'))[0],
         endTag = '</'+tagName+'>';

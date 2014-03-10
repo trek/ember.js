@@ -1,9 +1,10 @@
 import _default from "ember-views/views/states/default";
 import EmberError from "ember-metal/error";
-
-import Ember from "ember-metal/core"; // Ember.assert
+import {emberAssert} from "ember-metal/debugger";
 import {create} from "ember-metal/platform";
 import merge from "ember-metal/merge";
+import jQuery from "ember-views/system/jquery";
+
 
 /**
 @module ember
@@ -19,7 +20,7 @@ merge(inBuffer, {
     // rerender the view to allow the render method to reflect the
     // changes.
     view.rerender();
-    return Ember.$();
+    return jQuery();
   },
 
   // when a view is rendered in a buffer, rerendering it simply
@@ -57,7 +58,7 @@ merge(inBuffer, {
   },
 
   empty: function() {
-    Ember.assert("Emptying a view in the inBuffer state is not allowed and " +
+    emberAssert("Emptying a view in the inBuffer state is not allowed and " +
                  "should not happen under normal circumstances. Most likely " +
                  "there is a bug in your application. This may be due to " +
                  "excessive property change notifications.");

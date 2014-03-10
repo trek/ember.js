@@ -1,4 +1,5 @@
 import Ember from "ember-metal/core";
+import {emberAssert} from "ember-metal/debugger";
 import {_getPath as getPath} from "ember-metal/property_get";
 import {META_KEY} from "ember-metal/utils";
 import {propertyWillChange, propertyDidChange} from "ember-metal/property_events";
@@ -23,13 +24,13 @@ var MANDATORY_SETTER = Ember.ENV.MANDATORY_SETTER,
 */
 var set = function set(obj, keyName, value, tolerant) {
   if (typeof obj === 'string') {
-    Ember.assert("Path '" + obj + "' must be global if no obj is given.", IS_GLOBAL.test(obj));
+    emberAssert("Path '" + obj + "' must be global if no obj is given.", IS_GLOBAL.test(obj));
     value = keyName;
     keyName = obj;
     obj = null;
   }
 
-  Ember.assert("Cannot call set with "+ keyName +" key.", !!keyName);
+  emberAssert("Cannot call set with "+ keyName +" key.", !!keyName);
 
   if (!obj) {
     return setPath(obj, keyName, value, tolerant);
@@ -42,8 +43,8 @@ var set = function set(obj, keyName, value, tolerant) {
     return setPath(obj, keyName, value, tolerant);
   }
 
-  Ember.assert("You need to provide an object and key to `set`.", !!obj && keyName !== undefined);
-  Ember.assert('calling set on destroyed object', !obj.isDestroyed);
+  emberAssert("You need to provide an object and key to `set`.", !!obj && keyName !== undefined);
+  emberAssert('calling set on destroyed object', !obj.isDestroyed);
 
   if (desc !== undefined) {
     desc.set(obj, keyName, value);

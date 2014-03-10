@@ -1,4 +1,6 @@
 import Ember from "ember-metal/core"; // Ember.FEATURES, Ember.Test
+
+import {emberDeprecate} from "ember-metal/debugger";
 import {get} from "ember-metal/property_get";
 import {Mixin} from "ember-metal/mixin";
 import {computed} from "ember-metal/computed";
@@ -38,7 +40,7 @@ if (Ember.FEATURES['ember-runtime-test-friendly-promises']) {
 }
 
 RSVP.Promise.prototype.fail = function(callback, label){
-  Ember.deprecate('RSVP.Promise.fail has been renamed as RSVP.Promise.catch');
+  emberDeprecate('RSVP.Promise.fail has been renamed as RSVP.Promise.catch');
   return this['catch'](callback, label);
 };
 

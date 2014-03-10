@@ -3,6 +3,7 @@ import {typeOf} from "ember-metal/utils";
 import EmberObject from "ember-runtime/system/object";
 import Copyable from "ember-runtime/mixins/copyable";
 import {create} from "ember-metal/platform";
+import {emberAssert} from "ember-metal/debugger";
 
 var indexOf = EnumerableUtils.indexOf;
 
@@ -15,7 +16,7 @@ function _copy(obj, deep, seen, copies) {
   // avoid cyclical loops
   if (deep && (loc=indexOf(seen, obj))>=0) return copies[loc];
 
-  Ember.assert('Cannot clone an Ember.Object that does not implement Ember.Copyable', !(obj instanceof EmberObject) || (Copyable && Copyable.detect(obj)));
+  emberAssert'Cannot clone an Ember.Object that does not implement Ember.Copyable', !(obj instanceof EmberObject) || (Copyable && Copyable.detect(obj)));
 
   // IMPORTANT: this specific test will detect a native array only. Any other
   // object will need to implement Copyable.

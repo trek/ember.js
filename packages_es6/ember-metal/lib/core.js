@@ -190,17 +190,6 @@ Ember.LOG_VERSION = (Ember.ENV.LOG_VERSION === false) ? false : true;
 */
 Ember.K = function() { return this; };
 
-
-// Stub out the methods defined by the ember-debug package in case it's not loaded
-
-if ('undefined' === typeof Ember.assert) { Ember.assert = Ember.K; }
-if ('undefined' === typeof Ember.warn) { Ember.warn = Ember.K; }
-if ('undefined' === typeof Ember.debug) { Ember.debug = Ember.K; }
-if ('undefined' === typeof Ember.deprecate) { Ember.deprecate = Ember.K; }
-if ('undefined' === typeof Ember.deprecateFunc) {
-  Ember.deprecateFunc = function(_, func) { return func; };
-}
-
 /**
   Previously we used `Ember.$.uuid`, however `$.uuid` has been removed from
   jQuery master. We'll just bootstrap our own uuid now.

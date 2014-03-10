@@ -11,12 +11,12 @@ import {Descriptor, defineProperty} from "ember-metal/properties";
 import {propertyWillChange, propertyDidChange} from "ember-metal/property_events";
 import isEmpty from 'ember-metal/is_empty';
 import {isNone} from 'ember-metal/is_none';
-
+import {emberWarn} from "ember-metal/debugger";
 /**
 @module ember-metal
 */
 
-Ember.warn("The CP_DEFAULT_CACHEABLE flag has been removed and computed properties are always cached by default. Use `volatile` if you don't want caching.", Ember.ENV.CP_DEFAULT_CACHEABLE !== false);
+emberWarn("The CP_DEFAULT_CACHEABLE flag has been removed and computed properties are always cached by default. Use `volatile` if you don't want caching.", Ember.ENV.CP_DEFAULT_CACHEABLE !== false);
 
 
 var metaFor = meta,

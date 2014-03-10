@@ -898,7 +898,7 @@ if (!Ember.EXTEND_PROTOTYPES && !Ember.EXTEND_PROTOTYPES.Array) {
       })
     });
 
-    expectAssertion(function() {
+    raises(function() {
       obj = Type.create({ array: [] });
       get(obj, 'rc');
     }, /must be an `Ember.Array`/, "Ember.reduceComputed complains about dependent non-extended native arrays");

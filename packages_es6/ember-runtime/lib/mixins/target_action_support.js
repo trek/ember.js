@@ -2,8 +2,9 @@
 @module ember
 @submodule ember-runtime
 */
-import Ember from "ember-metal/core"; // Ember.lookup, Ember.assert
+import Ember from "ember-metal/core"; // Ember.lookup
 
+import {emberAssert} from "ember-metal/debugger";
 import {get} from "ember-metal/property_get";
 import {set} from "ember-metal/property_set";
 import {typeOf} from "ember-metal/utils";
@@ -128,7 +129,7 @@ var TargetActionSupport = Mixin.create({
       if (target.send) {
         ret = target.send.apply(target, args(actionContext, action));
       } else {
-        Ember.assert("The action '" + action + "' did not exist on " + target, typeof target[action] === 'function');
+        emberAssert("The action '" + action + "' did not exist on " + target, typeof target[action] === 'function');
         ret = target[action].apply(target, args(actionContext));
       }
 

@@ -3,7 +3,7 @@
 @submodule ember-runtime
 */
 
-import Ember from "ember-metal/core"; // Ember.assert
+import {emberAssert} from "ember-metal/debugger";
 import merge from "ember-metal/merge";
 import {get} from "ember-metal/property_get";
 import {set} from "ember-metal/property_set";
@@ -658,7 +658,7 @@ var SearchProxy = ObjectProxy.extend();
   on the sort property array or callback function
 */
 function sort(itemsKey, sortDefinition) {
-  Ember.assert("Ember.computed.sort requires two arguments: an array key to sort and either a sort properties key or sort function", arguments.length === 2);
+  emberAssert"Ember.computed.sort requires two arguments: an array key to sort and either a sort properties key or sort function", arguments.length === 2);
 
   var initFn, sortPropertiesKey;
 
@@ -678,7 +678,7 @@ function sort(itemsKey, sortDefinition) {
             idx,
             asc;
 
-        Ember.assert("Cannot sort: '" + sortPropertiesKey + "' is not an array.", isArray(sortPropertyDefinitions));
+        emberAssert"Cannot sort: '" + sortPropertiesKey + "' is not an array.", isArray(sortPropertyDefinitions));
 
         changeMeta.property.clearItemPropertyKeys(itemsKey);
 

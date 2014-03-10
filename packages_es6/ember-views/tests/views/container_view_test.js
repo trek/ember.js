@@ -704,13 +704,13 @@ test("Child view can only be added to one container at a time", function () {
     container.set('currentView', view);
   });
 
-  expectAssertion(function() {
+  raises(function() {
     run(function() {
       secondContainer.set('currentView', view);
     });
   });
 
-  expectAssertion(function() {
+  raises(function() {
     run(function() {
       secondContainer.pushObject(view);
     });

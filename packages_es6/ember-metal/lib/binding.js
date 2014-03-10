@@ -1,4 +1,5 @@
 import Ember from "ember-metal/core"; // Ember.Logger, Ember.LOG_BINDINGS, assert
+import {emberAssert} from "ember-metal/debugger";
 import {get} from "ember-metal/property_get";
 import {set, trySet} from "ember-metal/property_set";
 import {guidFor} from "ember-metal/utils";
@@ -153,7 +154,7 @@ Binding.prototype = {
     @return {Ember.Binding} `this`
   */
   connect: function(obj) {
-    Ember.assert('Must pass a valid object to Ember.Binding.connect()', !!obj);
+    emberAssert('Must pass a valid object to Ember.Binding.connect()', !!obj);
 
     var fromPath = this._from, toPath = this._to;
     trySet(obj, toPath, getWithGlobals(obj, fromPath));
@@ -178,7 +179,7 @@ Binding.prototype = {
     @return {Ember.Binding} `this`
   */
   disconnect: function(obj) {
-    Ember.assert('Must pass a valid object to Ember.Binding.disconnect()', !!obj);
+    emberAssert('Must pass a valid object to Ember.Binding.disconnect()', !!obj);
 
     var twoWay = !this._oneWay;
 

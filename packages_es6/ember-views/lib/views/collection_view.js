@@ -4,7 +4,7 @@
 @submodule ember-views
 */
 
-import Ember from "ember-metal/core"; // Ember.assert
+import {emberAssert} from "ember-metal/debugger";
 import {create} from "ember-metal/platform";
 import merge from "ember-metal/merge";
 import {get} from "ember-metal/property_get";
@@ -257,7 +257,7 @@ var CollectionView = ContainerView.extend({
     @method _assertArrayLike
   */
   _assertArrayLike: function(content) {
-    Ember.assert(fmt("an Ember.CollectionView's content must implement Ember.Array. You passed %@", [content]), EmberArray.detect(content));
+    emberAssert(fmt("an Ember.CollectionView's content must implement Ember.Array. You passed %@", [content]), EmberArray.detect(content));
   },
 
   /**
@@ -348,7 +348,7 @@ var CollectionView = ContainerView.extend({
         itemViewClass = get(itemViewClass) || itemViewClass;
       }
 
-      Ember.assert(fmt("itemViewClass must be a subclass of Ember.View, not %@",
+      emberAssert(fmt("itemViewClass must be a subclass of Ember.View, not %@",
                        [itemViewClass]),
                        'string' === typeof itemViewClass || View.detect(itemViewClass));
 

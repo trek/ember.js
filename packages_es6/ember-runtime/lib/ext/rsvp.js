@@ -1,4 +1,5 @@
-import Ember from "ember-metal/core";
+import Ember from "ember-metal/core"; // Ember.Test
+import {emberAssert} from "ember-metal/debugger";
 import Logger from "ember-metal/logger";
 
 var RSVP = requireModule("rsvp");
@@ -13,7 +14,7 @@ RSVP.onerrorDefault = function(error) {
       }
     } else {
       Logger.error(error.stack);
-      Ember.assert(error, false);
+      emberAssert(error, false);
     }
   }
 };

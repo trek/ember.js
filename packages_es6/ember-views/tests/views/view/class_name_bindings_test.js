@@ -269,7 +269,7 @@ test("Providing a binding with a space in it asserts", function() {
     classNameBindings: 'i:think:i am:so:clever'
   });
 
-  expectAssertion(function() {
+  raises(function() {
     view.createElement();
   }, /classNameBindings must not have spaces in them/i);
 });

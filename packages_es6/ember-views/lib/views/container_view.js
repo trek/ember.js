@@ -1,5 +1,6 @@
-import Ember from "ember-metal/core"; // Ember.assert, Ember.K
+import Ember from "ember-metal/core"; // Ember.K
 
+import {emberAssert} from "ember-metal/debugger";
 import merge from "ember-metal/merge";
 import MutableArray from "ember-runtime/mixins/mutable_array";
 import {get} from "ember-metal/property_get";
@@ -215,7 +216,7 @@ var ContainerView = View.extend(MutableArray, {
   replace: function(idx, removedCount, addedViews) {
     var addedCount = addedViews ? get(addedViews, 'length') : 0;
     var self = this;
-    Ember.assert("You can't add a child to a container that is already a child of another view", A(addedViews).every(function(item) { return !get(item, '_parentView') || get(item, '_parentView') === self; }));
+    emberAssert("You can't add a child to a container that is already a child of another view", A(addedViews).every(function(item) { return !get(item, '_parentView') || get(item, '_parentView') === self; }));
 
     this.arrayContentWillChange(idx, removedCount, addedCount);
     this.childViewsWillChange(this._childViews, idx, removedCount);
@@ -337,7 +338,7 @@ var ContainerView = View.extend(MutableArray, {
   _currentViewDidChange: observer('currentView', function() {
     var currentView = get(this, 'currentView');
     if (currentView) {
-      Ember.assert("You tried to set a current view that already has a parent. Make sure you don't have multiple outlets in the same view.", !get(currentView, '_parentView'));
+      emberAssert("You tried to set a current view that already has a parent. Make sure you don't have multiple outlets in the same view.", !get(currentView, '_parentView'));
       this.pushObject(currentView);
     }
   }),

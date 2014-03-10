@@ -1,9 +1,10 @@
-// Ember.assert, Ember.deprecate, Ember.warn, Ember.TEMPLATES,
-// Ember.K, jQuery, Ember.lookup,
+// Ember.TEMPLATES,
+// Ember.K, Ember.lookup,
 // Ember.ContainerView circular dependency
 // Ember.ENV
 import Ember from 'ember-metal/core';
 
+import {emberWarn, emberAssert, emberDeprecate} from "ember-metal/debugger";
 import EmberError from "ember-metal/error";
 import EmberObject from "ember-runtime/system/object";
 import Evented from "ember-runtime/mixins/evented";
@@ -83,7 +84,7 @@ var childViewsProperty = computed(function() {
     if (!ContainerView) { ContainerView = requireModule('ember-views/views/container_view')['default']; } // ES6TODO: stupid circular dep
 
     if (view instanceof ContainerView) {
-      Ember.deprecate("Manipulating an Ember.ContainerView through its childViews property is deprecated. Please use the ContainerView instance itself as an Ember.MutableArray.");
+      emberDeprecate("Manipulating an Ember.ContainerView through its childViews property is deprecated. Please use the ContainerView instance itself as an Ember.MutableArray.");
       return view.replace(idx, removedCount, addedViews);
     }
     throw new EmberError("childViews is immutable");
@@ -92,7 +93,7 @@ var childViewsProperty = computed(function() {
   return ret;
 });
 
-Ember.warn("The VIEW_PRESERVES_CONTEXT flag has been removed and the functionality can no longer be disabled.", Ember.ENV.VIEW_PRESERVES_CONTEXT !== false);
+emberWarn("The VIEW_PRESERVES_CONTEXT flag has been removed and the functionality can no longer be disabled.", Ember.ENV.VIEW_PRESERVES_CONTEXT !== false);
 
 /**
   Global hash of shared templates. This will automatically be populated
@@ -241,8 +242,8 @@ var CoreView = EmberObject.extend(Evented, ActionHandler, {
 
   deprecatedSend: function(actionName) {
     var args = [].slice.call(arguments, 1);
-    Ember.assert('' + this + " has the action " + actionName + " but it is not a function", typeof this[actionName] === 'function');
-    Ember.deprecate('Action handlers implemented directly on views are deprecated in favor of action handlers on an `actions` object ( action: `' + actionName + '` on ' + this + ')', false);
+    emberAssert('' + this + " has the action " + actionName + " but it is not a function", typeof this[actionName] === 'function');
+    emberDeprecate('Action handlers implemented directly on views are deprecated in favor of action handlers on an `actions` object ( action: `' + actionName + '` on ' + this + ')', false);
     this[actionName].apply(this, args);
     return;
   },
@@ -964,7 +965,7 @@ var View = CoreView.extend({
     var templateName = get(this, 'templateName'),
         template = this.templateForName(templateName, 'template');
 
-    Ember.assert("You specified the templateName " + templateName + " for " + this + ", but it did not exist.", !templateName || template);
+    emberAssert("You specified the templateName " + templateName + " for " + this + ", but it did not exist.", !templateName || template);
 
     return template || get(this, 'defaultTemplate');
   }),
@@ -999,7 +1000,7 @@ var View = CoreView.extend({
     var layoutName = get(this, 'layoutName'),
         layout = this.templateForName(layoutName, 'layout');
 
-    Ember.assert("You specified the layoutName " + layoutName + " for " + this + ", but it did not exist.", !layoutName || layout);
+    emberAssert("You specified the layoutName " + layoutName + " for " + this + ", but it did not exist.", !layoutName || layout);
 
     return layout || get(this, 'defaultLayout');
   }).property('layoutName'),
@@ -1011,7 +1012,7 @@ var View = CoreView.extend({
 
   templateForName: function(name, type) {
     if (!name) { return; }
-    Ember.assert("templateNames are not allowed to contain periods: "+name, name.indexOf('.') === -1);
+    emberAssert("templateNames are not allowed to contain periods: "+name, name.indexOf('.') === -1);
 
     // the defaultContainer is deprecated
     var container = this.container || (Container && Container.defaultContainer);
@@ -1133,7 +1134,7 @@ var View = CoreView.extend({
     @deprecated
   */
   nearestInstanceOf: function(klass) {
-    Ember.deprecate("nearestInstanceOf is deprecated and will be removed from future releases. Use nearestOfType.");
+    emberDeprecate("nearestInstanceOf is deprecated and will be removed from future releases. Use nearestOfType.");
     var view = get(this, 'parentView');
 
     while (view) {
@@ -1268,7 +1269,7 @@ var View = CoreView.extend({
       // is the view's controller by default. A hash of data is also passed that provides
       // the template with access to the view and render buffer.
 
-      Ember.assert('template must be a function. Did you mean to call Ember.Handlebars.compile("...") or specify templateName instead?', typeof template === 'function');
+      emberAssert('template must be a function. Did you mean to call Ember.Handlebars.compile("...") or specify templateName instead?', typeof template === 'function');
       // The template should write directly to the render buffer instead
       // of returning a string.
       output = template(context, { data: data });
@@ -1332,7 +1333,7 @@ var View = CoreView.extend({
     // ('content.isUrgent')
     a_forEach(classBindings, function(binding) {
 
-      Ember.assert("classNameBindings must not have spaces in them. Multiple class name bindings can be provided as elements of an array, e.g. ['foo', ':bar']", binding.indexOf(' ') === -1);
+      emberAssert("classNameBindings must not have spaces in them. Multiple class name bindings can be provided as elements of an array, e.g. ['foo', ':bar']", binding.indexOf(' ') === -1);
 
       // Variable in which the old class value is saved. The observer function
       // closes over this variable, so it knows which string to remove when
@@ -1577,8 +1578,8 @@ var View = CoreView.extend({
     // Schedule the DOM element to be created and appended to the given
     // element after bindings have synchronized.
     this._insertElementLater(function() {
-      Ember.assert("You tried to append to (" + target + ") but that isn't in the DOM", jQuery(target).length > 0);
-      Ember.assert("You cannot append to an existing Ember.View. Consider using Ember.ContainerView instead.", !jQuery(target).is('.ember-view') && !jQuery(target).parents().is('.ember-view'));
+      emberAssert("You tried to append to (" + target + ") but that isn't in the DOM", jQuery(target).length > 0);
+      emberAssert("You cannot append to an existing Ember.View. Consider using Ember.ContainerView instead.", !jQuery(target).is('.ember-view') && !jQuery(target).parents().is('.ember-view'));
       this.$().appendTo(target);
     });
 
@@ -1599,8 +1600,8 @@ var View = CoreView.extend({
     @return {Ember.View} received
   */
   replaceIn: function(target) {
-    Ember.assert("You tried to replace in (" + target + ") but that isn't in the DOM", jQuery(target).length > 0);
-    Ember.assert("You cannot replace an existing Ember.View. Consider using Ember.ContainerView instead.", !jQuery(target).is('.ember-view') && !jQuery(target).parents().is('.ember-view'));
+    emberAssert("You tried to replace in (" + target + ") but that isn't in the DOM", jQuery(target).length > 0);
+    emberAssert("You cannot replace an existing Ember.View. Consider using Ember.ContainerView instead.", !jQuery(target).is('.ember-view') && !jQuery(target).parents().is('.ember-view'));
 
     this._insertElementLater(function() {
       jQuery(target).empty();
@@ -2064,10 +2065,10 @@ var View = CoreView.extend({
     // setup child views. be sure to clone the child views array first
     this._childViews = this._childViews.slice();
 
-    Ember.assert("Only arrays are allowed for 'classNameBindings'", typeOf(this.classNameBindings) === 'array');
+    emberAssert("Only arrays are allowed for 'classNameBindings'", typeOf(this.classNameBindings) === 'array');
     this.classNameBindings = A(this.classNameBindings.slice());
 
-    Ember.assert("Only arrays are allowed for 'classNames'", typeOf(this.classNames) === 'array');
+    emberAssert("Only arrays are allowed for 'classNames'", typeOf(this.classNames) === 'array');
     this.classNames = A(this.classNames.slice());
   },
 
@@ -2210,12 +2211,12 @@ var View = CoreView.extend({
       var fullName = 'view:' + view;
       var ViewKlass = this.container.lookupFactory(fullName);
 
-      Ember.assert("Could not find view: '" + fullName + "'", !!ViewKlass);
+      emberAssert("Could not find view: '" + fullName + "'", !!ViewKlass);
 
       attrs.templateData = get(this, 'templateData');
       view = ViewKlass.create(attrs);
     } else {
-      Ember.assert('You must pass instance or subclass of View', view.isView);
+      emberAssert('You must pass instance or subclass of View', view.isView);
       attrs.container = this.container;
 
       if (!get(view, 'templateData')) {

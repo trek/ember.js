@@ -390,7 +390,7 @@ test('using @each to observe arrays that does not return objects raise error', f
 
   addObserver(ary, '@each.isDone', observerObject, 'wasCalled');
 
-  expectAssertion(function() {
+  raises(function() {
     ary.addObject(EmberObject.create({
       desc: "foo",
       isDone: false

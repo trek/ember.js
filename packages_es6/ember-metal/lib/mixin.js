@@ -3,7 +3,8 @@
 @submodule ember-metal
 */
 
-import Ember from "ember-metal/core"; // warn, assert, wrap, et;
+import Ember from "ember-metal/core"; // warn, wrap, etc;
+import {emberAssert} from "ember-metal/debugger";
 import merge from "ember-metal/merge";
 import {map, indexOf, forEach} from "ember-metal/array";
 import {create} from "ember-metal/platform";
@@ -220,7 +221,7 @@ function mergeMixins(mixins, m, descs, values, base, keys) {
 
   for(var i=0, l=mixins.length; i<l; i++) {
     mixin = mixins[i];
-    Ember.assert('Expected hash or Mixin instance, got ' + Object.prototype.toString.call(mixin),
+    emberAssert('Expected hash or Mixin instance, got ' + Object.prototype.toString.call(mixin),
                  typeof mixin === 'object' && mixin !== null && Object.prototype.toString.call(mixin) !== '[object Array]');
 
     props = mixinProperties(m, mixin);
@@ -496,7 +497,7 @@ MixinPrototype.reopen = function() {
 
   for(idx=0; idx < len; idx++) {
     mixin = arguments[idx];
-    Ember.assert('Expected hash or Mixin instance, got ' + Object.prototype.toString.call(mixin),
+    emberAssert('Expected hash or Mixin instance, got ' + Object.prototype.toString.call(mixin),
                  typeof mixin === 'object' && mixin !== null && Object.prototype.toString.call(mixin) !== '[object Array]');
 
     if (mixin instanceof Mixin) {
@@ -723,7 +724,7 @@ function observer() {
 function immediateObserver() {
   for (var i=0, l=arguments.length; i<l; i++) {
     var arg = arguments[i];
-    Ember.assert("Immediate observers must observe internal properties only, not properties on other objects.", typeof arg !== "string" || arg.indexOf('.') === -1);
+    emberAssert("Immediate observers must observe internal properties only, not properties on other objects.", typeof arg !== "string" || arg.indexOf('.') === -1);
   }
 
   return observer.apply(this, arguments);

@@ -3,11 +3,11 @@
   @submodule ember-runtime
 */
 
-import Ember from "ember-metal/core"; 
-// Ember.ENV.MANDATORY_SETTER, Ember.assert, Ember.K, Ember.config
+import Ember from "ember-metal/core"; // Ember.ENV.MANDATORY_SETTER, Ember.K, Ember.config
 
 // NOTE: this object should never be included directly. Instead use `Ember.Object`.
 // We only define this separately so that `Ember.Set` can depend on it.
+import {emberAssert} from "ember-metal/debugger";
 import {get} from "ember-metal/property_get";
 import {set} from "ember-metal/property_set";
 import {guidFor, apply} from "ember-metal/utils";
@@ -85,7 +85,7 @@ function makeCtor() {
       for (var i = 0, l = props.length; i < l; i++) {
         var properties = props[i];
 
-        Ember.assert("Ember.Object.create no longer supports mixing in other definitions, use createWithMixins instead.", !(properties instanceof Mixin));
+        emberAssert("Ember.Object.create no longer supports mixing in other definitions, use createWithMixins instead.", !(properties instanceof Mixin));
 
         if (typeof properties !== 'object' && properties !== undefined) {
           throw new EmberError("Ember.Object.create only accepts objects.");
@@ -113,9 +113,9 @@ function makeCtor() {
 
           var desc = m.descs[keyName];
 
-          Ember.assert("Ember.Object.create no longer supports defining computed properties. Define computed properties using extend() or reopen() before calling create().", !(value instanceof ComputedProperty));
-          Ember.assert("Ember.Object.create no longer supports defining methods that call _super.", !(typeof value === 'function' && value.toString().indexOf('._super') !== -1));
-          Ember.assert("`actions` must be provided at extend time, not at create " +
+          emberAssert("Ember.Object.create no longer supports defining computed properties. Define computed properties using extend() or reopen() before calling create().", !(value instanceof ComputedProperty));
+          emberAssert("Ember.Object.create no longer supports defining methods that call _super.", !(typeof value === 'function' && value.toString().indexOf('._super') !== -1));
+          emberAssert("`actions` must be provided at extend time, not at create " +
                        "time, when Ember.ActionHandler is used (i.e. views, " +
                        "controllers & routes).", !((keyName === 'actions') && ActionHandler.detect(this)));
 
@@ -729,7 +729,7 @@ var ClassMixin = Mixin.create({
     var meta = this.proto()[META_KEY],
         desc = meta && meta.descs[key];
 
-    Ember.assert("metaForProperty() could not find a computed property with key '"+key+"'.", !!desc && desc instanceof ComputedProperty);
+    emberAssert("metaForProperty() could not find a computed property with key '"+key+"'.", !!desc && desc instanceof ComputedProperty);
     return desc._meta || {};
   },
 

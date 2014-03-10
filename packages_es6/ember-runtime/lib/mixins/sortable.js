@@ -3,8 +3,8 @@
 @submodule ember-runtime
 */
 
-import Ember from "ember-metal/core"; // Ember.assert, Ember.A
-
+import Ember from "ember-metal/core"; // Ember.A
+import {emberAssert} from "ember-metal/debugger";
 import {get} from "ember-metal/property_get";
 import {set} from "ember-metal/property_set";
 import EnumerableUtils from "ember-metal/enumerable_utils";
@@ -119,7 +119,7 @@ var SortableMixin = Mixin.create(MutableEnumerable, {
         sortAscending = get(this, 'sortAscending'),
         sortFunction = get(this, 'sortFunction');
 
-    Ember.assert("you need to define `sortProperties`", !!sortProperties);
+    emberAssert("you need to define `sortProperties`", !!sortProperties);
 
     forEach(sortProperties, function(propertyName) {
       if (result === 0) {

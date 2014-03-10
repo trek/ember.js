@@ -1,8 +1,7 @@
-import Ember from "ember-metal/core"; // Ember.assert
+import {emberAssert} from "ember-metal/debugger";
 import {create} from "ember-metal/platform";
 import merge from "ember-metal/merge";
 import EmberError from "ember-metal/error";
-
 import hasElement from "ember-views/views/states/has_element";
 /**
 @module ember
@@ -20,7 +19,7 @@ merge(inDOM, {
     // Register the view for event handling. This hash is used by
     // Ember.EventDispatcher to dispatch incoming events.
     if (!view.isVirtual) {
-      Ember.assert("Attempted to register a view with an id already in use: "+view.elementId, !View.views[view.elementId]);
+      emberAssert("Attempted to register a view with an id already in use: "+view.elementId, !View.views[view.elementId]);
       View.views[view.elementId] = view;
     }
 

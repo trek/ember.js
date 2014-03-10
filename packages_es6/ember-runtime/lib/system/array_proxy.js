@@ -1,4 +1,4 @@
-import Ember from "ember-metal/core"; // Ember.K, Ember.assert
+import Ember from "ember-metal/core"; // Ember.K
 import {get} from "ember-metal/property_get";
 import {set} from "ember-metal/property_set";
 import {isArray, apply} from "ember-metal/utils";
@@ -147,7 +147,7 @@ var ArrayProxy = EmberObject.extend(MutableArray, {
   _contentDidChange: observer('content', function() {
     var content = get(this, 'content');
 
-    Ember.assert("Can't set ArrayProxy's content to itself", content !== this);
+    emberAssert("Can't set ArrayProxy's content to itself", content !== this);
 
     this._setupContent();
   }),
@@ -156,8 +156,8 @@ var ArrayProxy = EmberObject.extend(MutableArray, {
     var content = get(this, 'content');
 
     if (content) {
-      Ember.assert(EmberStringUtils.fmt('ArrayProxy expects an Array or ' + 
-        'Ember.ArrayProxy, but you passed %@', [typeof content]), 
+      emberAssert(EmberStringUtils.fmt('ArrayProxy expects an Array or ' +
+        'Ember.ArrayProxy, but you passed %@', [typeof content]),
         isArray(content) || content.isDestroyed);
 
       content.addArrayObserver(this, {
@@ -181,7 +181,7 @@ var ArrayProxy = EmberObject.extend(MutableArray, {
     var arrangedContent = get(this, 'arrangedContent'),
         len = arrangedContent ? get(arrangedContent, 'length') : 0;
 
-    Ember.assert("Can't set ArrayProxy's content to itself", arrangedContent !== this);
+    emberAssert("Can't set ArrayProxy's content to itself", arrangedContent !== this);
 
     this._setupArrangedContent();
 
@@ -193,8 +193,8 @@ var ArrayProxy = EmberObject.extend(MutableArray, {
     var arrangedContent = get(this, 'arrangedContent');
 
     if (arrangedContent) {
-      Ember.assert(EmberStringUtils.fmt('ArrayProxy expects an Array or ' + 
-        'Ember.ArrayProxy, but you passed %@', [typeof arrangedContent]), 
+      emberAssert(EmberStringUtils.fmt('ArrayProxy expects an Array or ' +
+        'Ember.ArrayProxy, but you passed %@', [typeof arrangedContent]),
         isArray(arrangedContent) || arrangedContent.isDestroyed);
 
       arrangedContent.addArrayObserver(this, {
@@ -230,7 +230,7 @@ var ArrayProxy = EmberObject.extend(MutableArray, {
 
   _replace: function(idx, amt, objects) {
     var content = get(this, 'content');
-    Ember.assert('The content property of '+ this.constructor + ' should be set before modifying it', content);
+    emberAssert('The content property of '+ this.constructor + ' should be set before modifying it', content);
     if (content) this.replaceContent(idx, amt, objects);
     return this;
   },

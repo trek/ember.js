@@ -1,4 +1,4 @@
-import Ember from 'ember-metal/core'; // Ember.deprecate
+import {emberDeprecate} from "ember-metal/debugger";
 import {get} from "ember-metal/property_get";
 import {Mixin} from 'ember-metal/mixin';
 
@@ -55,7 +55,7 @@ var ComponentTemplateDeprecation = Mixin.create({
     }
 
     if (deprecatedProperty) {
-      Ember.deprecate('Do not specify ' + deprecatedProperty + ' on a Component, use ' + replacementProperty + ' instead.', false);
+      emberDeprecate('Do not specify ' + deprecatedProperty + ' on a Component, use ' + replacementProperty + ' instead.', false);
     }
   }
 });

@@ -3,8 +3,10 @@
 @submodule ember-runtime
 */
 
-// Ember.lookup, Ember.BOOTED, Ember.deprecate, Ember.NAME_KEY, Ember.anyUnprocessedMixins
+// Ember.lookup, Ember.BOOTED, Ember.NAME_KEY, Ember.anyUnprocessedMixins
 import Ember from "ember-metal/core";
+
+import {emberDeprecate} from "ember-metal/debugger";
 import {get} from "ember-metal/property_get";
 import {indexOf} from "ember-metal/array";
 import {GUID_KEY, guidFor} from "ember-metal/utils";
@@ -143,7 +145,7 @@ function findNamespaces() {
     }
 
     if (isNamespace) {
-      Ember.deprecate("Namespaces should not begin with lowercase.", /^[A-Z]/.test(prop));
+      emberDeprecate("Namespaces should not begin with lowercase.", /^[A-Z]/.test(prop));
       obj[NAME_KEY] = prop;
     }
   }
@@ -171,7 +173,7 @@ function classToString() {
   if (this[NAME_KEY]) {
     ret = this[NAME_KEY];
   } else if (this._toString) {
-    ret = this._toString; 
+    ret = this._toString;
   } else {
     var str = superClassString(this);
     if (str) {

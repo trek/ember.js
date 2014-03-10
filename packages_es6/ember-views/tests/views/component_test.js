@@ -149,11 +149,11 @@ test("Calling sendAction when the action name is not a string raises an exceptio
   set(component, 'action', {});
   set(component, 'playing', {});
 
-  expectAssertion(function() {
+  raises(function() {
     component.sendAction();
   });
 
-  expectAssertion(function() {
+  raises(function() {
     component.sendAction('playing');
   });
 });

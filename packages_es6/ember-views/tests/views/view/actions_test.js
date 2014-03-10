@@ -100,7 +100,7 @@ test("Action can be handled by a superclass' actions object", function() {
 });
 
 test("Actions cannot be provided at create time", function() {
-  expectAssertion(function() {
+  raises(function() {
     view = View.create({
       actions: {
         foo: function() {

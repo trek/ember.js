@@ -1,4 +1,4 @@
-import Ember from 'ember-metal/core'; // deprecateFunc
+import {emberDeprecateFunc} from "ember-metal/debugger";
 
 /**
   Returns true if the passed value is null or undefined. This avoids errors
@@ -22,7 +22,7 @@ import Ember from 'ember-metal/core'; // deprecateFunc
 var isNone = function(obj) {
   return obj === null || obj === undefined;
 };
-var none = Ember.deprecateFunc("Ember.none is deprecated. Please use Ember.isNone instead.", isNone);
+var none = emberDeprecateFunc("Ember.none is deprecated. Please use Ember.isNone instead.", isNone);
 
 export default isNone;
 export {isNone, none};

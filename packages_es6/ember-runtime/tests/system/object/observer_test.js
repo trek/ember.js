@@ -116,7 +116,7 @@ testBoth('observer should not fire after being destroyed', function(get, set) {
   run(function() { obj.destroy(); });
 
   if (Ember.assert) {
-    expectAssertion(function() {
+    raises(function() {
       set(obj, 'bar', "BAZ");
     }, "calling set on destroyed object");
   } else {

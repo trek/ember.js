@@ -2,6 +2,7 @@
 @module ember-metal
 */
 import Ember from "ember-metal/core";
+import {emberAssert} from "ember-metal/debugger";
 import {meta, META_KEY, tryFinally, apply, applyStr} from "ember-metal/utils";
 import {create} from "ember-metal/platform";
 
@@ -115,7 +116,7 @@ function listenersDiff(obj, eventName, otherActions) {
   @param {Boolean} once A flag whether a function should only be called once
 */
 function addListener(obj, eventName, target, method, once) {
-  Ember.assert("You must pass at least an object and event name to Ember.addListener", !!obj && !!eventName);
+  emberAssert("You must pass at least an object and event name to Ember.addListener", !!obj && !!eventName);
 
   if (!method && 'function' === typeof target) {
     method = target;
@@ -150,7 +151,7 @@ function addListener(obj, eventName, target, method, once) {
   @param {Function|String} method A function or the name of a function to be called on `target`
 */
 function removeListener(obj, eventName, target, method) {
-  Ember.assert("You must pass at least an object and event name to Ember.removeListener", !!obj && !!eventName);
+  emberAssert("You must pass at least an object and event name to Ember.removeListener", !!obj && !!eventName);
 
   if (!method && 'function' === typeof target) {
     method = target;

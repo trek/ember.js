@@ -1,5 +1,6 @@
-import Ember from "ember-metal/core"; // Ember.assert, Ember.Handlebars
+import Ember from "ember-metal/core"; //Ember.Handlebars
 
+import {emberAssert} from "ember-metal/debugger";
 import ComponentTemplateDeprecation from "ember-views/mixins/component_template_deprecation";
 import TargetActionSupport from "ember-runtime/mixins/target_action_support";
 import {View} from "ember-views/views/view"
@@ -138,7 +139,7 @@ var Component = View.extend(TargetActionSupport, ComponentTemplateDeprecation, {
     var templateName = get(this, 'templateName'),
         template = this.templateForName(templateName, 'template');
 
-    Ember.assert("You specified the templateName " + templateName + " for " + this + ", but it did not exist.", !templateName || template);
+    emberAssert("You specified the templateName " + templateName + " for " + this + ", but it did not exist.", !templateName || template);
 
     return template || get(this, 'defaultTemplate');
   }).property('templateName'),
@@ -166,7 +167,7 @@ var Component = View.extend(TargetActionSupport, ComponentTemplateDeprecation, {
         template = get(this, 'template');
 
     if (template) {
-      Ember.assert("A Component must have a parent view in order to yield.", parentView);
+      emberAssert("A Component must have a parent view in order to yield.", parentView);
 
       view.appendChild(Ember.View, {
         isVirtual: true,
@@ -280,12 +281,12 @@ var Component = View.extend(TargetActionSupport, ComponentTemplateDeprecation, {
     // Send the default action
     if (action === undefined) {
       actionName = get(this, 'action');
-      Ember.assert("The default action was triggered on the component " + this.toString() +
+      emberAssert("The default action was triggered on the component " + this.toString() +
                    ", but the action name (" + actionName + ") was not a string.",
                    isNone(actionName) || typeof actionName === 'string');
     } else {
       actionName = get(this, action);
-      Ember.assert("The " + action + " action was triggered on the component " +
+      emberAssert("The " + action + " action was triggered on the component " +
                    this.toString() + ", but the action name (" + actionName +
                    ") was not a string.",
                    isNone(actionName) || typeof actionName === 'string');

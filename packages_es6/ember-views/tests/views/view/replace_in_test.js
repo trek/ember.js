@@ -36,7 +36,7 @@ test("should be added to the specified element when calling replaceIn()", functi
 test("raises an assert when a target does not exist in the DOM", function() {
   view = View.create();
 
-  expectAssertion(function() {
+  raises(function() {
     run(function() {
       view.replaceIn('made-up-target');
     });

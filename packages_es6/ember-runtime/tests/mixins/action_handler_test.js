@@ -8,7 +8,7 @@ test("passing a function for the actions hash triggers an assertion", function()
     actions: function(){}
   });
 
-  expectAssertion(function(){
+  raises(function(){
     run(function(){
       controller.create();
     });

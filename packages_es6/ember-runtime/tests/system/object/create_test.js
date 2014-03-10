@@ -90,7 +90,7 @@ test("calls setUnknownProperty if defined", function() {
 });
 
 test("throws if you try to define a computed property", function() {
-  expectAssertion(function() {
+  raises(function() {
     EmberObject.create({
       foo: computed(function() {})
     });
@@ -98,7 +98,7 @@ test("throws if you try to define a computed property", function() {
 });
 
 test("throws if you try to call _super in a method", function() {
-  expectAssertion(function() {
+  raises(function() {
      EmberObject.create({
       foo: function() {
         this._super();
@@ -114,7 +114,7 @@ test("throws if you try to 'mixin' a definition", function() {
     }
   });
 
-  expectAssertion(function() {
+  raises(function() {
     var o = EmberObject.create(myMixin);
   }, "Ember.Object.create no longer supports mixing in other definitions, use createWithMixins instead.");
 });

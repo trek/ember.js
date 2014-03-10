@@ -2,6 +2,7 @@
 @module ember
 @submodule ember-runtime
 */
+import {emberAssert, emberWarn, emberDeprecate} from "ember-metal/debugger";
 import merge from "ember-metal/merge";
 import {Mixin} from 'ember-metal/mixin';
 import {get} from "ember-metal/property_get";
@@ -153,12 +154,12 @@ var ActionHandler = Mixin.create({
     var hashName;
 
     if (!props._actions) {
-      Ember.assert("'actions' should not be a function", typeof(props.actions) !== 'function');
+      emberAssert("'actions' should not be a function", typeof(props.actions) !== 'function');
 
       if (typeOf(props.actions) === 'object') {
         hashName = 'actions';
       } else if (typeOf(props.events) === 'object') {
-        Ember.deprecate('Action handlers contained in an `events` object are deprecated in favor of putting them in an `actions` object', false);
+        emberDeprecate('Action handlers contained in an `events` object are deprecated in favor of putting them in an `actions` object', false);
         hashName = 'events';
       }
 
@@ -209,7 +210,7 @@ var ActionHandler = Mixin.create({
         return;
       }
     } else if (!Ember.FEATURES.isEnabled('ember-routing-drop-deprecated-action-style') && this.deprecatedSend && this.deprecatedSendHandles && this.deprecatedSendHandles(actionName)) {
-      Ember.warn("The current default is deprecated but will prefer to handle actions directly on the controller instead of a similarly named action in the actions hash. To turn off this deprecated feature set: Ember.FEATURES['ember-routing-drop-deprecated-action-style'] = true");
+      emberWarn("The current default is deprecated but will prefer to handle actions directly on the controller instead of a similarly named action in the actions hash. To turn off this deprecated feature set: Ember.FEATURES['ember-routing-drop-deprecated-action-style'] = true");
       if (this.deprecatedSend.apply(this, [].slice.call(arguments)) === true) {
         // handler return true, so this action will bubble
       } else {
@@ -218,7 +219,7 @@ var ActionHandler = Mixin.create({
     }
 
     if (target = get(this, 'target')) {
-      Ember.assert("The `target` for " + this + " (" + target + ") does not have a `send` method", typeof target.send === 'function');
+      emberAssert("The `target` for " + this + " (" + target + ") does not have a `send` method", typeof target.send === 'function');
       target.send.apply(target, arguments);
     }
   }

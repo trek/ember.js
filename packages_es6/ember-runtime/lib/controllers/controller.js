@@ -1,4 +1,4 @@
-import Ember from "ember-metal/core"; // Ember.assert, Ember.deprecate
+import {emberAssert, emberDeprecate} from "ember-metal/debugger";
 import {get} from "ember-metal/property_get";
 import EmberObject from "ember-runtime/system/object";
 import {Mixin} from "ember-metal/mixin";
@@ -51,8 +51,8 @@ var ControllerMixin = Mixin.create(ActionHandler, {
 
   deprecatedSend: function(actionName) {
     var args = [].slice.call(arguments, 1);
-    Ember.assert('' + this + " has the action " + actionName + " but it is not a function", typeof this[actionName] === 'function');
-    Ember.deprecate('Action handlers implemented directly on controllers are deprecated in favor of action handlers on an `actions` object ( action: `' + actionName + '` on ' + this + ')', false);
+    emberAssert('' + this + " has the action " + actionName + " but it is not a function", typeof this[actionName] === 'function');
+    emberDeprecate('Action handlers implemented directly on controllers are deprecated in favor of action handlers on an `actions` object ( action: `' + actionName + '` on ' + this + ')', false);
     this[actionName].apply(this, args);
     return;
   }

@@ -1,4 +1,4 @@
-import Ember from 'ember-metal/core'; // Ember.assert
+import {emberAssert} from "ember-metal/debugger";
 
 // ES6TODO: the functions on EmberStringUtils need their own exports
 import EmberStringUtils from "ember-runtime/system/string";
@@ -22,7 +22,7 @@ if (!jQuery && typeof require === 'function') {
   jQuery = require('jquery');
 }
 
-Ember.assert("Ember Views require jQuery between 1.7 and 2.1", jQuery && (jQuery().jquery.match(/^((1\.(7|8|9|10|11))|(2\.(0|1)))(\.\d+)?(pre|rc\d?)?/) || Ember.ENV.FORCE_JQUERY));
+emberAssert("Ember Views require jQuery between 1.7 and 2.1", jQuery && (jQuery().jquery.match(/^((1\.(7|8|9|10|11))|(2\.(0|1)))(\.\d+)?(pre|rc\d?)?/) || Ember.ENV.FORCE_JQUERY));
 
 /**
 @module ember

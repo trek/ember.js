@@ -3,6 +3,7 @@
 */
 
 import Ember from "ember-metal/core";
+import {emberAssert} from "ember-metal/debugger";
 import {META_KEY, meta} from "ember-metal/utils";
 import {platform} from "ember-metal/platform";
 import {overrideChains} from "ember-metal/property_events";
@@ -33,7 +34,7 @@ function Descriptor() {};
 //
 
 var MANDATORY_SETTER_FUNCTION = Ember.MANDATORY_SETTER_FUNCTION = function(value) {
-  Ember.assert("You must use Ember.set() to access this property (of " + this + ")", false);
+  emberAssert("You must use Ember.set() to access this property (of " + this + ")", false);
 };
 
 var DEFAULT_GETTER_FUNCTION = Ember.DEFAULT_GETTER_FUNCTION = function(name) {

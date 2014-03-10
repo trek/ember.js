@@ -3,6 +3,7 @@
 */
 
 import Ember from "ember-metal/core";
+import {emberAssert} from "ember-metal/debugger";
 import {META_KEY} from "ember-metal/utils";
 import EmberError from "ember-metal/error";
 
@@ -56,8 +57,8 @@ get = function get(obj, keyName) {
     obj = null;
   }
 
-  Ember.assert("Cannot call get with "+ keyName +" key.", !!keyName);
-  Ember.assert("Cannot call get with '"+ keyName +"' on an undefined object.", obj !== undefined);
+  emberAssert("Cannot call get with "+ keyName +" key.", !!keyName);
+  emberAssert("Cannot call get with '"+ keyName +"' on an undefined object.", obj !== undefined);
 
   if (obj === null) { return _getPath(obj, keyName);  }
 

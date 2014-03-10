@@ -2,7 +2,7 @@
 @module ember
 @submodule ember-runtime
 */
-import Ember from "ember-metal/core"; // Ember.assert
+import {emberAssert} from "ember-metal/debugger";
 import {get} from "ember-metal/property_get";
 import {set} from "ember-metal/property_set";
 import {meta} from "ember-metal/utils";
@@ -103,7 +103,7 @@ var ObjectProxy = EmberObject.extend({
   */
   content: null,
   _contentDidChange: observer('content', function() {
-    Ember.assert("Can't set ObjectProxy's content to itself", get(this, 'content') !== this);
+    emberAssert("Can't set ObjectProxy's content to itself", get(this, 'content') !== this);
   }),
 
   isTruthy: computed.bool('content'),
@@ -139,7 +139,7 @@ var ObjectProxy = EmberObject.extend({
     }
 
     var content = get(this, 'content');
-    Ember.assert(EmberStringUtils.fmt("Cannot delegate set('%@', %@) to the 'content' property of object proxy %@: its 'content' is undefined.", [key, value, this]), content);
+    emberAssert(EmberStringUtils.fmt("Cannot delegate set('%@', %@) to the 'content' property of object proxy %@: its 'content' is undefined.", [key, value, this]), content);
     return set(content, key, value);
   }
 

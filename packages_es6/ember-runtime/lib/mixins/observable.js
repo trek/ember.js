@@ -2,8 +2,7 @@
 @module ember
 @submodule ember-runtime
 */
-import Ember from "ember-metal/core"; // Ember.assert
-
+import {emberAssert} from "ember-metal/debugger";
 import {get, getWithDefault} from "ember-metal/property_get";
 import {set} from "ember-metal/property_set";
 import {apply} from "ember-metal/utils";
@@ -434,7 +433,7 @@ var Observable = Mixin.create({
   */
   incrementProperty: function(keyName, increment) {
     if (isNone(increment)) { increment = 1; }
-    Ember.assert("Must pass a numeric value to incrementProperty", (!isNaN(parseFloat(increment)) && isFinite(increment)));
+    emberAssert("Must pass a numeric value to incrementProperty", (!isNaN(parseFloat(increment)) && isFinite(increment)));
     set(this, keyName, (get(this, keyName) || 0) + increment);
     return get(this, keyName);
   },
@@ -454,7 +453,7 @@ var Observable = Mixin.create({
   */
   decrementProperty: function(keyName, decrement) {
     if (isNone(decrement)) { decrement = 1; }
-    Ember.assert("Must pass a numeric value to decrementProperty", (!isNaN(parseFloat(decrement)) && isFinite(decrement)));
+    emberAssert("Must pass a numeric value to decrementProperty", (!isNaN(parseFloat(decrement)) && isFinite(decrement)));
     set(this, keyName, (get(this, keyName) || 0) - decrement);
     return get(this, keyName);
   },

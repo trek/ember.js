@@ -35,6 +35,8 @@ import {
 import EmberError from "ember-metal/error";
 import EnumerableUtils from "ember-metal/enumerable_utils";
 
+import {emberAssert, emberWarn, emberDebug, emberDeprecate, emberDeprecateFunc} from "ember-metal/debugger";
+
 import {create, platform} from "ember-metal/platform";
 import {map, forEach, filter, indexOf} from "ember-metal/array";
 import Logger from "ember-metal/logger";
@@ -125,6 +127,12 @@ Ember.tryFinally      = tryFinally;
 Ember.wrap            = wrap;
 Ember.apply           = apply;
 Ember.applyStr        = applyStr;
+
+Ember.assert        = emberAssert;
+Ember.warn          = emberWarn;
+Ember.debug         = emberDebug;
+Ember.deprecate     = emberDeprecate;
+Ember.deprecateFunc = emberDeprecateFunc;
 
 Ember.Logger = Logger;
 

@@ -1,4 +1,3 @@
-import Ember from "ember-metal/core"; // Ember.assert
 import {get as e_get} from "ember-metal/property_get";
 import {set} from "ember-metal/property_set";
 import {guidFor, meta} from "ember-metal/utils";
@@ -14,6 +13,7 @@ import EmberArray from "ember-runtime/mixins/array";
 import run from "ember-metal/run_loop";
 import Set from "ember-runtime/system/set";
 import {isArray} from "ember-metal/utils";
+import {emberAssert} from "ember-metal/debugger";
 
 var cacheSet = cacheFor.set,
     cacheGet = cacheFor.get,
@@ -74,7 +74,7 @@ function DependentArraysObserver(callbacks, cp, instanceMeta, context, propertyN
 }
 
 function ItemPropertyObserverContext (dependentArray, index, trackedArray) {
-  Ember.assert("Internal error: trackedArray is null or undefined", trackedArray);
+  emberAssert"Internal error: trackedArray is null or undefined", trackedArray);
 
   this.dependentArray = dependentArray;
   this.index = index;
@@ -485,7 +485,7 @@ function ReduceComputedProperty(options) {
 
     meta.dependentArraysObserver.suspendArrayObservers(function () {
       forEach(cp._dependentKeys, function (dependentKey) {
-        Ember.assert(
+        emberAssert
           "dependent array " + dependentKey + " must be an `Ember.Array`.  " +
           "If you are not extending arrays, you will need to wrap native arrays with `Ember.A`",
           !(isArray(get(this, dependentKey)) && !EmberArray.detect(get(this, dependentKey))));
@@ -530,7 +530,7 @@ function ReduceComputedProperty(options) {
 
 
   this.func = function (propertyName) {
-    Ember.assert("Computed reduce values require at least one dependent key", cp._dependentKeys);
+    emberAssert"Computed reduce values require at least one dependent key", cp._dependentKeys);
 
     recompute.call(this, propertyName);
 

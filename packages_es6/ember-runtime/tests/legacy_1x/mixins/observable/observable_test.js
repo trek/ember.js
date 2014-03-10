@@ -164,7 +164,7 @@ test("raise if the provided object is null", function() {
 */
 
 test("raise if the provided object is undefined", function() {
-  expectAssertion(function() {
+  raises(function() {
     get(undefined, 'key');
   }, /Cannot call get with 'key' on an undefined object/i);
 });
@@ -698,15 +698,15 @@ test('incrementProperty and decrementProperty',function() {
   newValue = object.incrementProperty('numberVal', 0);
   equal(25,newValue,'zero numerical value incremented by specified increment');
 
-  expectAssertion(function() {
+  raises(function() {
     newValue = object.incrementProperty('numberVal', (0 - void(0))); // Increment by NaN
   }, /Must pass a numeric value to incrementProperty/i);
 
-  expectAssertion(function() {
+  raises(function() {
     newValue = object.incrementProperty('numberVal', 'Ember'); // Increment by non-numeric String
   }, /Must pass a numeric value to incrementProperty/i);
 
-  expectAssertion(function() {
+  raises(function() {
     newValue = object.incrementProperty('numberVal', 1/0); // Increment by Infinity
   }, /Must pass a numeric value to incrementProperty/i);
 
@@ -722,15 +722,15 @@ test('incrementProperty and decrementProperty',function() {
   newValue = object.decrementProperty('numberVal', 0);
   equal(25,newValue,'zero numerical value decremented by specified increment');
 
-  expectAssertion(function() {
+  raises(function() {
     newValue = object.decrementProperty('numberVal', (0 - void(0))); // Decrement by NaN
   }, /Must pass a numeric value to decrementProperty/i);
 
-  expectAssertion(function() {
+  raises(function() {
     newValue = object.decrementProperty('numberVal', 'Ember'); // Decrement by non-numeric String
   }, /Must pass a numeric value to decrementProperty/i);
 
-  expectAssertion(function() {
+  raises(function() {
     newValue = object.decrementProperty('numberVal', 1/0); // Decrement by Infinity
   }, /Must pass a numeric value to decrementProperty/i);
 
@@ -869,7 +869,7 @@ test("removing an observer inside of an observer shouldn’t cause any problems"
     ObjectD.addObserver('observableValue', null, 'observer2');
     ObjectD.addObserver('observableValue', null, 'observer3');
     run(function() {
-      ObjectD.set('observableValue', "hi world"); 
+      ObjectD.set('observableValue', "hi world");
     });
   }
   catch(e) {

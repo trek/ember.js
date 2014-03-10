@@ -56,7 +56,7 @@ test("should be added to the document body when calling append()", function() {
 test("raises an assert when a target does not exist in the DOM", function() {
   view = View.create();
 
-  expectAssertion(function() {
+  raises(function() {
     run(function() {
       view.appendTo('does-not-exist-in-dom');
     });

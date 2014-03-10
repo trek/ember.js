@@ -41,29 +41,29 @@ testBoth("should call unknownProperty on watched values if the value is undefine
 });
 
 test('warn on attempts to get a property of undefined', function() {
-  expectAssertion(function() {
+  raises(function(){
     get(undefined, 'aProperty');
   }, /Cannot call get with 'aProperty' on an undefined object/i);
 });
 
 test('warn on attempts to get a property path of undefined', function() {
-  expectAssertion(function() {
+  raises(function() {
     get(undefined, 'aProperty.on.aPath');
   }, /Cannot call get with 'aProperty.on.aPath' on an undefined object/);
 });
 
 test('warn on attemps to get a falsy property', function() {
   var obj = {};
-  expectAssertion(function() {
+  raises(function() {
     get(obj, null);
   }, /Cannot call get with null key/);
-  expectAssertion(function() {
+  raises(function() {
     get(obj, NaN);
   }, /Cannot call get with NaN key/);
-  expectAssertion(function() {
+  raises(function() {
     get(obj, undefined);
   }, /Cannot call get with undefined key/);
-  expectAssertion(function() {
+  raises(function() {
     get(obj, false);
   }, /Cannot call get with false key/);
 });

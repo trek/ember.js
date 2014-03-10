@@ -31,7 +31,7 @@ test("registers view in the global views hash using layerId for event targeted",
 module("EmberView.createWithMixins");
 
 test("should warn if a non-array is used for classNames", function() {
-  expectAssertion(function() {
+  raises(function() {
     EmberView.createWithMixins({
       elementId: 'test',
       classNames: computed(function() {
@@ -42,7 +42,7 @@ test("should warn if a non-array is used for classNames", function() {
 });
 
 test("should warn if a non-array is used for classNamesBindings", function() {
-  expectAssertion(function() {
+  raises(function() {
     EmberView.createWithMixins({
       elementId: 'test',
       classNameBindings: computed(function() {

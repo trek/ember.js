@@ -1,4 +1,5 @@
-import Ember from 'ember-metal/core';
+import Ember from 'ember-metal/core'; // to add to onError
+import {emberAssert} from "ember-metal/debugger";
 import {apply} from 'ember-metal/utils';
 import {beginPropertyChanges, endPropertyChanges} from 'ember-metal/property_events';
 
@@ -560,7 +561,7 @@ run.cancel = function(timer) {
     then it will be looked up on the passed target.
   @param {Object} [args*] Optional arguments to pass to the timeout.
   @param {Number} wait Number of milliseconds to wait.
-  @param {Boolean} immediate Trigger the function on the leading instead 
+  @param {Boolean} immediate Trigger the function on the leading instead
     of the trailing edge of the wait interval. Defaults to false.
   @return {Array} Timer information for use in cancelling, see `run.cancel`.
 */
@@ -607,7 +608,7 @@ run.throttle = function() {
 // Make sure it's not an autorun during testing
 function checkAutoRun() {
   if (!run.currentRunLoop) {
-    Ember.assert("You have turned on testing mode, which disabled the run-loop's autorun. You will need to wrap any code with asynchronous side-effects in an run", !Ember.testing);
+    emberAssert("You have turned on testing mode, which disabled the run-loop's autorun. You will need to wrap any code with asynchronous side-effects in an run", !Ember.testing);
   }
 }
 

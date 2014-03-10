@@ -3,7 +3,8 @@
 @submodule ember-runtime
 */
 
-import Ember from "ember-metal/core"; // Ember.EXTEND_PROTOTYPES, Ember.assert
+import Ember from "ember-metal/core"; // Ember.EXTEND_PROTOTYPES
+import {emberAssert} from "ember-metal/debugger";
 import expandProperties from "ember-metal/expand_properties";
 import {computed} from "ember-metal/computed";
 
@@ -145,7 +146,7 @@ if (Ember.EXTEND_PROTOTYPES === true || Ember.EXTEND_PROTOTYPES.Function) {
   FunctionPrototype.observesImmediately = function() {
     for (var i=0, l=arguments.length; i<l; i++) {
       var arg = arguments[i];
-      Ember.assert("Immediate observers must observe internal properties only, not properties on other objects.", arg.indexOf('.') === -1);
+      emberAssert("Immediate observers must observe internal properties only, not properties on other objects.", arg.indexOf('.') === -1);
     }
 
     // observes handles property expansion

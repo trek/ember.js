@@ -1,6 +1,8 @@
-import Ember from "ember-metal/core";
+import Ember from "ember-metal/core"; // Ember.ENV
 import {platform, create} from "ember-metal/platform";
 import {forEach} from "ember-metal/array";
+import {emberDeprecate} from "ember-metal/debugger";
+
 
 /**
 @module ember-metal
@@ -290,7 +292,7 @@ function setMeta(obj, property, value) {
     shared with its constructor
 */
 function metaPath(obj, path, writable) {
-  Ember.deprecate("Ember.metaPath is deprecated and will be removed from future releases.");
+  emberDeprecate("Ember.metaPath is deprecated and will be removed from future releases.");
   var _meta = meta(obj, writable), keyName, value;
 
   for (var i=0, l=path.length; i<l; i++) {
