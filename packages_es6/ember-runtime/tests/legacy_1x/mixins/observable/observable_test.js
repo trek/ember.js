@@ -9,6 +9,8 @@ import EmberStringUtils from "ember-runtime/system/string";
 import EmberObject from 'ember-runtime/system/object';
 import Observable from 'ember-runtime/mixins/observable';
 
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
+
 var forEach = EnumerableUtils.forEach;
 
 /*
@@ -157,14 +159,14 @@ test("should return null when property is null on standard objects", function() 
 
 /*
 test("raise if the provided object is null", function() {
-  raises(function() {
+  expectAssertion(function() {
     get(null, 'key');
   });
 });
 */
 
 test("raise if the provided object is undefined", function() {
-  raises(function() {
+  expectAssertion(function() {
     get(undefined, 'key');
   }, /Cannot call get with 'key' on an undefined object/i);
 });
@@ -698,15 +700,15 @@ test('incrementProperty and decrementProperty',function() {
   newValue = object.incrementProperty('numberVal', 0);
   equal(25,newValue,'zero numerical value incremented by specified increment');
 
-  raises(function() {
+  expectAssertion(function() {
     newValue = object.incrementProperty('numberVal', (0 - void(0))); // Increment by NaN
   }, /Must pass a numeric value to incrementProperty/i);
 
-  raises(function() {
+  expectAssertion(function() {
     newValue = object.incrementProperty('numberVal', 'Ember'); // Increment by non-numeric String
   }, /Must pass a numeric value to incrementProperty/i);
 
-  raises(function() {
+  expectAssertion(function() {
     newValue = object.incrementProperty('numberVal', 1/0); // Increment by Infinity
   }, /Must pass a numeric value to incrementProperty/i);
 
@@ -722,15 +724,15 @@ test('incrementProperty and decrementProperty',function() {
   newValue = object.decrementProperty('numberVal', 0);
   equal(25,newValue,'zero numerical value decremented by specified increment');
 
-  raises(function() {
+  expectAssertion(function() {
     newValue = object.decrementProperty('numberVal', (0 - void(0))); // Decrement by NaN
   }, /Must pass a numeric value to decrementProperty/i);
 
-  raises(function() {
+  expectAssertion(function() {
     newValue = object.decrementProperty('numberVal', 'Ember'); // Decrement by non-numeric String
   }, /Must pass a numeric value to decrementProperty/i);
 
-  raises(function() {
+  expectAssertion(function() {
     newValue = object.decrementProperty('numberVal', 1/0); // Decrement by Infinity
   }, /Must pass a numeric value to decrementProperty/i);
 

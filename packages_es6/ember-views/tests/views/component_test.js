@@ -4,6 +4,7 @@ import EmberObject from "ember-runtime/system/object";
 
 import {View as EmberView} from "ember-views/views/view";
 import Component from "ember-views/views/component";
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 var a_slice = Array.prototype.slice;
 
@@ -145,15 +146,15 @@ test("Calling sendAction with a named action uses the component's property as th
   equal(actionCounts['didDoSomeBusiness'], 1, "default action was sent");
 });
 
-test("Calling sendAction when the action name is not a string raises an exception", function() {
+test("Calling sendAction when the action name is not a string expectAssertion an exception", function() {
   set(component, 'action', {});
   set(component, 'playing', {});
 
-  raises(function() {
+  expectAssertion(function() {
     component.sendAction();
   });
 
-  raises(function() {
+  expectAssertion(function() {
     component.sendAction('playing');
   });
 });

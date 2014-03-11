@@ -1,4 +1,5 @@
 import run from 'ember-metal/run_loop';
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 module('system/run_loop/schedule_test');
 
@@ -68,12 +69,12 @@ test('prior queues should be flushed before moving on to next queue', function()
 });
 
 test('makes sure it does not trigger an autorun during testing', function() {
-  raises(function() {
+  expectAssertion(function() {
     run.schedule('actions', function() {});
   }, /wrap any code with asynchronous side-effects in an run/);
 
   // make sure not just the first violation is asserted.
-  raises(function() {
+  expectAssertion(function() {
     run.schedule('actions', function() {});
   }, /wrap any code with asynchronous side-effects in an run/);
 });

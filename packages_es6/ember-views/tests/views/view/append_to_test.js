@@ -7,6 +7,8 @@ import jQuery from "ember-views/system/jquery";
 import {View as EmberView} from "ember-views/views/view";
 import ContainerView from "ember-views/views/container_view";
 
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
+
 var View, view, willDestroyCalled, childView;
 
 module("EmberView - append() and appendTo()", {
@@ -53,10 +55,10 @@ test("should be added to the document body when calling append()", function() {
   ok(viewElem.length > 0, "creates and appends the view's element");
 });
 
-test("raises an assert when a target does not exist in the DOM", function() {
+test("expectAssertion an assert when a target does not exist in the DOM", function() {
   view = View.create();
 
-  raises(function() {
+  expectAssertion(function() {
     run(function() {
       view.appendTo('does-not-exist-in-dom');
     });

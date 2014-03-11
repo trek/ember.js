@@ -1,4 +1,4 @@
-/*globals raises */
+import {expectAssertion} from "ember-metal/tests/assertion_helpers";
 
 module('Ember.Mixin.apply');
 
@@ -25,7 +25,7 @@ test('applying anonymous properties', function() {
 });
 
 test('applying null values', function() {
-  raises(function() {
+  expectAssertion(function() {
     Ember.mixin({}, null);
   });
 });

@@ -2,6 +2,8 @@
 
 import Ember from 'ember-metal/core';
 import testBoth from 'ember-metal/tests/props_helper';
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
+
 import {addObserver, removeObserver, addBeforeObserver, _suspendObserver, _suspendObservers, removeBeforeObserver} from "ember-metal/observer";
 import {create} from 'ember-metal/platform';
 import {defineProperty} from 'ember-metal/properties';
@@ -1092,7 +1094,7 @@ testBoth('immediate observers watching multiple properties via brace expansion f
 });
 
 testBoth("immediate observers are for internal properties only", function(get, set) {
-  raises(function() {
+  expectAssertion(function() {
     immediateObserver('foo.bar', Ember.K);
   }, 'Immediate observers must observe internal properties only, not properties on other objects.');
 });

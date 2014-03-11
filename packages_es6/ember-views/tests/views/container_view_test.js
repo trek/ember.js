@@ -6,6 +6,7 @@ import {Controller} from "ember-runtime/controllers/controller";
 import jQuery from "ember-views/system/jquery";
 import {View} from "ember-views/views/view";
 import ContainerView from "ember-views/views/container_view";
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 var trim = jQuery.trim, container, view, otherContainer;
 
@@ -704,13 +705,13 @@ test("Child view can only be added to one container at a time", function () {
     container.set('currentView', view);
   });
 
-  raises(function() {
+  expectAssertion(function() {
     run(function() {
       secondContainer.set('currentView', view);
     });
   });
 
-  raises(function() {
+  expectAssertion(function() {
     run(function() {
       secondContainer.pushObject(view);
     });

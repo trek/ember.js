@@ -7,6 +7,7 @@ import {required, Mixin, observer} from "ember-metal/mixin";
 import run from "ember-metal/run_loop";
 import {on} from "ember-metal/events";
 import EmberObject from "ember-runtime/system/object";
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 var moduleOptions, originalLookup;
 
@@ -90,7 +91,7 @@ test("calls setUnknownProperty if defined", function() {
 });
 
 test("throws if you try to define a computed property", function() {
-  raises(function() {
+  expectAssertion(function() {
     EmberObject.create({
       foo: computed(function() {})
     });
@@ -98,7 +99,7 @@ test("throws if you try to define a computed property", function() {
 });
 
 test("throws if you try to call _super in a method", function() {
-  raises(function() {
+  expectAssertion(function() {
      EmberObject.create({
       foo: function() {
         this._super();
@@ -114,7 +115,7 @@ test("throws if you try to 'mixin' a definition", function() {
     }
   });
 
-  raises(function() {
+  expectAssertion(function() {
     var o = EmberObject.create(myMixin);
   }, "Ember.Object.create no longer supports mixing in other definitions, use createWithMixins instead.");
 });

@@ -13,6 +13,8 @@ import {reduceComputed} from "ember-runtime/computed/reduce_computed";
 import ArrayProxy from "ember-runtime/system/array_proxy";
 import SubArray from "ember-runtime/system/subarray";
 
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
+
 var map = EnumerableUtils.map,
     metaFor = meta,
     obj, addCalls, removeCalls, callbackItems;
@@ -898,7 +900,7 @@ if (!Ember.EXTEND_PROTOTYPES && !Ember.EXTEND_PROTOTYPES.Array) {
       })
     });
 
-    raises(function() {
+    expectAssertion(function() {
       obj = Type.create({ array: [] });
       get(obj, 'rc');
     }, /must be an `Ember.Array`/, "Ember.reduceComputed complains about dependent non-extended native arrays");

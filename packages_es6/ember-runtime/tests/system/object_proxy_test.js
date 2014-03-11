@@ -3,6 +3,7 @@ import {computed} from "ember-metal/computed";
 import {isWatching} from "ember-metal/watching";
 import {testBoth} from 'ember-runtime/tests/props_helper';
 import ObjectProxy from "ember-runtime/system/object_proxy";
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 module("ObjectProxy");
 
@@ -33,7 +34,7 @@ testBoth("should proxy properties to content", function(get, set) {
       proxy = ObjectProxy.create();
 
   equal(get(proxy, 'firstName'), undefined, 'get on proxy without content should return undefined');
-  raises(function () {
+  expectAssertion(function () {
     set(proxy, 'firstName', 'Foo');
   }, /Cannot delegate set\('firstName', Foo\) to the 'content'/i);
 

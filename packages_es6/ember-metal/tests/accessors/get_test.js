@@ -1,4 +1,5 @@
 import testBoth from 'ember-metal/tests/props_helper';
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 import {get, getWithDefault} from 'ember-metal/property_get';
 import {Mixin, observer} from 'ember-metal/mixin';
 import {addObserver} from "ember-metal/observer";
@@ -41,29 +42,29 @@ testBoth("should call unknownProperty on watched values if the value is undefine
 });
 
 test('warn on attempts to get a property of undefined', function() {
-  raises(function(){
+  expectAssertion(function(){
     get(undefined, 'aProperty');
   }, /Cannot call get with 'aProperty' on an undefined object/i);
 });
 
 test('warn on attempts to get a property path of undefined', function() {
-  raises(function() {
+  expectAssertion(function() {
     get(undefined, 'aProperty.on.aPath');
   }, /Cannot call get with 'aProperty.on.aPath' on an undefined object/);
 });
 
 test('warn on attemps to get a falsy property', function() {
   var obj = {};
-  raises(function() {
+  expectAssertion(function() {
     get(obj, null);
   }, /Cannot call get with null key/);
-  raises(function() {
+  expectAssertion(function() {
     get(obj, NaN);
   }, /Cannot call get with NaN key/);
-  raises(function() {
+  expectAssertion(function() {
     get(obj, undefined);
   }, /Cannot call get with undefined key/);
-  raises(function() {
+  expectAssertion(function() {
     get(obj, false);
   }, /Cannot call get with false key/);
 });

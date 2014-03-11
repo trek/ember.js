@@ -3,6 +3,7 @@ import run from "ember-metal/run_loop";
 import jQuery from "ember-views/system/jquery";
 import {View as EmberView} from "ember-views/views/view";
 import ContainerView from "ember-views/views/container_view";
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 var View, view, willDestroyCalled, childView;
 
@@ -36,7 +37,7 @@ test("should be added to the specified element when calling replaceIn()", functi
 test("raises an assert when a target does not exist in the DOM", function() {
   view = View.create();
 
-  raises(function() {
+  expectAssertion(function() {
     run(function() {
       view.replaceIn('made-up-target');
     });

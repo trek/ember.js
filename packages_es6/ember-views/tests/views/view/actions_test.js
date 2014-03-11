@@ -6,6 +6,7 @@ import {Mixin} from "ember-metal/mixin";
 import {Controller} from "ember-runtime/controllers/controller";
 import EmberObject from "ember-runtime/system/object";
 import {View} from "ember-views/views/view";
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 var view;
 
@@ -100,7 +101,7 @@ test("Action can be handled by a superclass' actions object", function() {
 });
 
 test("Actions cannot be provided at create time", function() {
-  raises(function() {
+  expectAssertion(function() {
     view = View.create({
       actions: {
         foo: function() {

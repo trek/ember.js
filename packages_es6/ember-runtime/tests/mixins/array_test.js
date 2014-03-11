@@ -9,6 +9,7 @@ import {ArrayTests} from 'ember-runtime/tests/suites/array';
 import EmberObject from 'ember-runtime/system/object';
 import EmberArray from "ember-runtime/mixins/array";
 
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 /*
   Implement a basic fake mutable array.  This validates that any non-native
   enumerable can impl this API.
@@ -390,7 +391,7 @@ test('using @each to observe arrays that does not return objects raise error', f
 
   addObserver(ary, '@each.isDone', observerObject, 'wasCalled');
 
-  raises(function() {
+  expectAssertion(function() {
     ary.addObject(EmberObject.create({
       desc: "foo",
       isDone: false

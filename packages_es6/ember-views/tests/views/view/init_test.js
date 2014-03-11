@@ -4,6 +4,7 @@ import run from "ember-metal/run_loop";
 import {computed} from "ember-metal/computed";
 import EmberObject from "ember-runtime/system/object";
 import {View as EmberView} from "ember-views/views/view";
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 var originalLookup = Ember.lookup, lookup, view;
 
@@ -31,7 +32,7 @@ test("registers view in the global views hash using layerId for event targeted",
 module("EmberView.createWithMixins");
 
 test("should warn if a non-array is used for classNames", function() {
-  raises(function() {
+  expectAssertion(function() {
     EmberView.createWithMixins({
       elementId: 'test',
       classNames: computed(function() {
@@ -42,7 +43,7 @@ test("should warn if a non-array is used for classNames", function() {
 });
 
 test("should warn if a non-array is used for classNamesBindings", function() {
-  raises(function() {
+  expectAssertion(function() {
     EmberView.createWithMixins({
       elementId: 'test',
       classNameBindings: computed(function() {

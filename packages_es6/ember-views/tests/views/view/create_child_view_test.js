@@ -1,6 +1,7 @@
 import {get} from "ember-metal/property_get";
 import run from "ember-metal/run_loop";
 import {View as EmberView} from "ember-views/views/view";
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 var view, myViewClass, newView, container;
 
@@ -90,7 +91,7 @@ test("should create from string via container lookup", function() {
 test("should assert when trying to create childView from string, but no such view is registered", function() {
   view.container.lookupFactory = function() {};
 
-  raises(function(){
+  expectAssertion(function(){
     view.createChildView('bro');
   });
 });

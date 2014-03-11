@@ -3,6 +3,7 @@ import {get as emberGet} from "ember-metal/property_get";
 import {observer} from "ember-metal/mixin";
 import {testWithDefault, testBoth} from 'ember-runtime/tests/props_helper';
 import EmberObject from "ember-runtime/system/object";
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 module('EmberObject computed property');
 

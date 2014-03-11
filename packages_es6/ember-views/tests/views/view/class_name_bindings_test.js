@@ -6,6 +6,7 @@ import {changeProperties} from "ember-metal/property_events";
 import {isWatching} from "ember-metal/watching";
 import EmberObject from "ember-runtime/system/object";
 import {View as EmberView} from "ember-views/views/view";
+import {expectAssertion} from 'ember-metal/tests/assertion_helpers';
 
 var view;
 
@@ -269,7 +270,7 @@ test("Providing a binding with a space in it asserts", function() {
     classNameBindings: 'i:think:i am:so:clever'
   });
 
-  raises(function() {
+  expectAssertion(function() {
     view.createElement();
   }, /classNameBindings must not have spaces in them/i);
 });

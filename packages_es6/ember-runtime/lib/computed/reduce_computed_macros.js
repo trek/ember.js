@@ -658,7 +658,7 @@ var SearchProxy = ObjectProxy.extend();
   on the sort property array or callback function
 */
 function sort(itemsKey, sortDefinition) {
-  emberAssert"Ember.computed.sort requires two arguments: an array key to sort and either a sort properties key or sort function", arguments.length === 2);
+  emberAssert("Ember.computed.sort requires two arguments: an array key to sort and either a sort properties key or sort function", arguments.length === 2);
 
   var initFn, sortPropertiesKey;
 
@@ -678,7 +678,7 @@ function sort(itemsKey, sortDefinition) {
             idx,
             asc;
 
-        emberAssert"Cannot sort: '" + sortPropertiesKey + "' is not an array.", isArray(sortPropertyDefinitions));
+        emberAssert("Cannot sort: '" + sortPropertiesKey + "' is not an array.", isArray(sortPropertyDefinitions));
 
         changeMeta.property.clearItemPropertyKeys(itemsKey);
 

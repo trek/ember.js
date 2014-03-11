@@ -74,7 +74,7 @@ function DependentArraysObserver(callbacks, cp, instanceMeta, context, propertyN
 }
 
 function ItemPropertyObserverContext (dependentArray, index, trackedArray) {
-  emberAssert"Internal error: trackedArray is null or undefined", trackedArray);
+  emberAssert("Internal error: trackedArray is null or undefined", trackedArray);
 
   this.dependentArray = dependentArray;
   this.index = index;
@@ -485,7 +485,7 @@ function ReduceComputedProperty(options) {
 
     meta.dependentArraysObserver.suspendArrayObservers(function () {
       forEach(cp._dependentKeys, function (dependentKey) {
-        emberAssert
+        emberAssert(
           "dependent array " + dependentKey + " must be an `Ember.Array`.  " +
           "If you are not extending arrays, you will need to wrap native arrays with `Ember.A`",
           !(isArray(get(this, dependentKey)) && !EmberArray.detect(get(this, dependentKey))));
@@ -530,7 +530,7 @@ function ReduceComputedProperty(options) {
 
 
   this.func = function (propertyName) {
-    emberAssert"Computed reduce values require at least one dependent key", cp._dependentKeys);
+    emberAssert("Computed reduce values require at least one dependent key", cp._dependentKeys);
 
     recompute.call(this, propertyName);
 

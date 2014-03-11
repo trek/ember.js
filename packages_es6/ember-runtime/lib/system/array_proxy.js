@@ -10,7 +10,7 @@ import EmberObject from "ember-runtime/system/object"
 import MutableArray from "ember-runtime/mixins/mutable_array"
 import Enumerable from "ember-runtime/mixins/enumerable";
 import EmberStringUtils from "ember-runtime/system/string";
-
+import {emberAssert} from "ember-metal/debugger";
 /**
 @module ember
 @submodule ember-runtime
