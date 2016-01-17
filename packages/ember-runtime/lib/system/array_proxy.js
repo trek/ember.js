@@ -94,8 +94,9 @@ var ArrayProxy = EmberObject.extend(MutableArray, {
 
   /**
    The array that the proxy pretends to be. In the default `ArrayProxy`
-   implementation, this and `content` are the same. Subclasses of `ArrayProxy`
-   can override this property to provide things like sorting and filtering.
+   implementation, `arrangedContent` and `content` are the same. Subclasses of
+   `ArrayProxy` can override this property to provide functionality like
+   sorting and filtering.
 
    @property arrangedContent
    @private
@@ -103,9 +104,9 @@ var ArrayProxy = EmberObject.extend(MutableArray, {
   arrangedContent: alias('content'),
 
   /**
-    Should actually retrieve the object at the specified index from the
-    content. You can override this method in subclasses to transform the
-    content item to something new.
+    Returns the object at the specified index from the content. You can
+    override this method in subclasses to transform the content item to
+    something new.
 
     This method will only be called if content is non-`null`.
 
@@ -119,9 +120,8 @@ var ArrayProxy = EmberObject.extend(MutableArray, {
   },
 
   /**
-    Should actually replace the specified objects on the content array.
-    You can override this method in subclasses to transform the content item
-    into something new.
+    Replaces the specified objects on the content array. You can override this
+    method in subclasses to transform the content item into something new.
 
     This method will only be called if content is non-`null`.
 
@@ -130,7 +130,7 @@ var ArrayProxy = EmberObject.extend(MutableArray, {
     @param {Number} amt The number of items to remove from the content.
     @param {Array} objects Optional array of objects to insert or null if no
       objects.
-    @return {void}
+    @return {undefined}
     @private
   */
   replaceContent(idx, amt, objects) {
